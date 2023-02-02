@@ -1,0 +1,41 @@
+version: "3.7"
+services:
+  webserver:
+    build:
+      context: ./web_server
+    volumes:
+      - ./web_server:/app
+    privileged: true
+    ports:
+      - 80
+    depends_on:
+      - redis
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+
+    ports:
+      - 9090:9090
+    depends_on:
+      - webserver
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
+
+  redis-exporter:
+    image: oliver006/redis_exporter
+    ports:
+      - 9121:9121
+
+#  grafana:
+#    image: grafana/grafana:latest
+#    volumes:
+#            - ./grafana/grafana.ini:/etc/grafana/grafana.ini
+#            - ./grafana/datasource.yml:/etc/grafana/provisioning/datasources/datasource.yaml
+#    ports:
+#      - 3000:3000
+
