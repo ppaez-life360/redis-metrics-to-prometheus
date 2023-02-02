@@ -11,3 +11,8 @@ Verify that Prometheus is scrapping the metrics out of `redis` using the `redis-
 
 Verify that there are metrics incoming from `redis`:
 ![](./docs/Metric_from_Redis.png)
+
+## Web server
+The web server does two functions in this example:
+* Serve the list of redis hosts. This would be ideally dynamically generated.
+* Add new items to the redis cluster in order to have activity.
